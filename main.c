@@ -26,10 +26,12 @@ int main() {
   ident(transform);
   print_matrix(transform);
 
-  printf("\nTesting scalar_mult on edges..\n");
+  printf("\nTesting scalar_mult on edges...\n");
   printf("times 3\n");
   scalar_mult(3, edges);
   print_matrix(edges);
+
+  printf("\nTesting copy_matrix...\n");
 
   free_matrix( transform );
   free_matrix( edges );

@@ -78,7 +78,7 @@ print the matrix
 void print_matrix(struct matrix *m) {
   for (int i = 0; i < m->rows; i++) {
     for (int j = 0; j < m->cols; j++) {
-      printf("%f ", m->m[i][j] );
+      printf("%f\t", m->m[i][j] );
     }
     printf("\n");
   }
@@ -133,7 +133,7 @@ void scalar_mult(double x, struct matrix *m) {
     }
   }
 }
-
+;
 
 /*-------------- void matrix_mult() --------------
 Inputs:  struct matrix *a
@@ -142,9 +142,24 @@ Returns:
 
 a*b -> b
 */
-//void matrix_mult(struct matrix *a, struct matrix *b) {
-//}
-
+/*
+void matrix_mult(struct matrix *a, struct matrix *b) {
+  if (a->cols == b->rows){
+    product = new_matrix(a->rows, b->cols);
+    //down the first column of a and across the first row of b
+    for (int i = 0; i < product->rows; i++) {
+      for (int j = 0; j < product->cols; j++) { //loop throught the product matrix across then down
+        //now for building the sum inside each cell of the matrix
+        for (int m = 0; m < a->rows; m++){
+          for (int n = 0; n < a->cols; n++){
+            product->product[i][j] = 
+          }
+        }
+      }
+    }
+  }
+}
+*/
 
 
 /*-------------- void copy_matrix() --------------
@@ -154,16 +169,17 @@ Returns:
 
 copy matrix a to matrix b
 */
-/*
+
 void copy_matrix(struct matrix *a, struct matrix *b) {
 
   int r, c;
-
-  for (r=0; r < a->rows; r++) 
-    for (c=0; c < a->cols; c++)  
+  for (r = 0; r < a->rows; r++) {
+    for (c = 0; c < a->cols; c++) {
       b->m[r][c] = a->m[r][c];  
+    }
+  }
 }
-*/
+ 
 /*======== struct matrix * make_translate() ==========
 Inputs:  int x
          int y
