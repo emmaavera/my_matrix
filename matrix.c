@@ -93,7 +93,7 @@ populates m with (pretty much) arbitrary values
 void pop(struct matrix *m) {
   for (int i = 0; i < m->rows; i++) {
     for (int j = 0; j < m->cols; j++) {
-      m->m[i][j] = 1;
+      m->m[i][j] = rand() % 3 + 1;
     }
   }
 }
@@ -136,30 +136,37 @@ void scalar_mult(double x, struct matrix *m) {
 ;
 
 /*-------------- void matrix_mult() --------------
-Inputs:  struct matrix *a
+Inputs:  struct mat rix *a
          struct matrix *b 
 Returns: 
 
 a*b -> b
 */
-/*
+
 void matrix_mult(struct matrix *a, struct matrix *b) {
   if (a->cols == b->rows){
-    product = new_matrix(a->rows, b->cols);
+    struct matrix *p;
+    p = new_matrix(a->rows, b->cols);
+    int curr_col_a = 0;
+    int curr_row_b = 0;
     //down the first column of a and across the first row of b
-    for (int i = 0; i < product->rows; i++) {
-      for (int j = 0; j < product->cols; j++) { //loop throught the product matrix across then down
-        //now for building the sum inside each cell of the matrix
-        for (int m = 0; m < a->rows; m++){
-          for (int n = 0; n < a->cols; n++){
-            product->product[i][j] = 
-          }
+    //ROW of the first is multiplies by the column of the second 
+    for (int i = 0; i < p->rows; i++) {
+      for (int j = 0; j < p->cols; j++) { //loop throught the product matrix across then down
+        for (int n = 0; n < a->rows; n++) {
+          p->m[i][j] += a->m[i][n] * b->m[n][j];
         }
       }
-    }
+    } 
+    curr_col_a++;
+    curr_row_b++;
+    copy_matrix(p, b);
+  }
+  else {
+    printf("Matricies are not able to be multiplied.\n");
   }
 }
-*/
+
 
 
 /*-------------- void copy_matrix() --------------
