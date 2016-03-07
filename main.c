@@ -17,27 +17,48 @@ int main() {
   c.green = MAX_COLOR;
   c.blue = MAX_COLOR;
   struct matrix *edges;
+  struct matrix *edges_orig;
   struct matrix *transform;
 
   edges = new_matrix(4, 4);
-  //printf("WHERE ARE U SEG FAULT 0 \n");
   //Make a triangle
   add_edge(edges, 10, 10, 0, XRES / 4, (YRES-10) / 2, 0);
-  //printf("WHERE ARE U SEG FAULT 1 \n");
   add_edge(edges, XRES / 4, (YRES-10) / 2, 0, (XRES-10) / 2, 10, 0);
-  //printf("WHERE ARE U SEG FAULT 2 \n");
   add_edge(edges, (XRES-10) / 2, 10, 0, 10, 10, 0);
-  //printf("WHERE ARE U SEG FAULT 3 \n");
-  //print_matrix(edges);
+  edges_orig = edges;
   draw_lines(edges, s, c);
 
   transform = new_matrix(4, 4);
   ident(transform);
-  transform = make_translate(50, 30, 0);
+  transform = make_translate(50, 30, 1);
   matrix_mult(transform, edges);
   c.red = MAX_COLOR;
   c.green = 0;
   c.blue = MAX_COLOR;
+  draw_lines(edges, s, c);
+
+  transform = make_scale( 0.5, 0.5, 1);
+  matrix_mult(transform, edges);
+
+
+  c.red = MAX_COLOR;
+  c.blue = 0;
+  c.green = MAX_COLOR;
+  draw_lines(edges, s, c);
+
+  transform = make_rotX( 3.14 );
+  printf("transform---\n");
+  print_matrix(transform);
+  matrix_mult(transform, edges);
+  printf("rotx---\n");
+  print_matrix(edges);
+  transform = make_translate(1, 400, 1);
+  matrix_mult(transform, edges);
+  printf("rotx + trans---\n");
+  print_matrix(edges);
+  c.red = 0;
+  c.blue = 0;
+  c.green = MAX_COLOR;
   draw_lines(edges, s, c);
 
   display(s);

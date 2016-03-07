@@ -29,10 +29,11 @@ void add_point( struct matrix * points, int x, int y, int z) {
   if (points->lastcol == points->cols) {
     grow_matrix(points,points->cols + 1);
   }
+  //I HAVE NO IDEA WHY I USE LASTCOL INSTEAD OF ?!?!?
   points->m[0][points->lastcol]=x;
   points->m[1][points->lastcol]=y;
   points->m[2][points->lastcol]=z;
-  points->m[3][points->lastcol]=1;
+  points->m[3][points->lastcol]=1;
   points->lastcol = points->lastcol + 1;
 }
 
