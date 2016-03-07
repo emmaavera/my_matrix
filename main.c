@@ -10,14 +10,43 @@
 int main() {
 
   screen s;
+  clear_screen(s);
+
+  color c;
+  c.red = 0;
+  c.green = MAX_COLOR;
+  c.blue = MAX_COLOR;
   struct matrix *edges;
   struct matrix *transform;
 
   edges = new_matrix(4, 4);
-  pop(edges);
-  transform = new_matrix(4, 4);
-  pop(transform);
+  //printf("WHERE ARE U SEG FAULT 0 \n");
+  //Make a triangle
+  add_edge(edges, 10, 10, 0, XRES / 4, (YRES-10) / 2, 0);
+  //printf("WHERE ARE U SEG FAULT 1 \n");
+  add_edge(edges, XRES / 4, (YRES-10) / 2, 0, (XRES-10) / 2, 10, 0);
+  //printf("WHERE ARE U SEG FAULT 2 \n");
+  add_edge(edges, (XRES-10) / 2, 10, 0, 10, 10, 0);
+  //printf("WHERE ARE U SEG FAULT 3 \n");
+  //print_matrix(edges);
+  draw_lines(edges, s, c);
 
+  transform = new_matrix(4, 4);
+  ident(transform);
+  transform = make_translate(50, 30, 0);
+  matrix_mult(transform, edges);
+  c.red = MAX_COLOR;
+  c.green = 0;
+  c.blue = MAX_COLOR;
+  draw_lines(edges, s, c);
+
+  display(s);
+
+  free_matrix( transform );
+  free_matrix( edges );
+}  
+
+/*
   printf("Testing that edges has been initialized and\npopulated so that m[i][j] = 1...\n");
   print_matrix(edges);
   printf("Complete √\n");
@@ -62,6 +91,4 @@ int main() {
   printf("**Disclaimer: This was not tested on non-square matricies.\n");
 
   free_matrix( copy_me );
-  free_matrix( transform );
-  free_matrix( edges );
-}  
+  */

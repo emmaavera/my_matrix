@@ -16,12 +16,24 @@ adds point (x, y, z) to points and increment points.lastcol
 if points is full, should call grow on points
 ====================*/
 void add_point( struct matrix * points, int x, int y, int z) {
-  grow_matrix(points, 1);
+  /*printf("WHERE ARE U SEG FAULT ft. add_point -1 \n");
+  grow_matrix(points, (points->cols) + 1);
+  printf("WHERE ARE U SEG FAULT ft. add_point 0 \n");
   int c = points->cols;
-  points->m[c][0] = x;
-  points->m[c][1] = y;
-  points->m[c][2] = z;
-  points->m[c][3] = 1;
+  printf("WHERE ARE U SEG FAULT ft. add_point 1 \n");
+  points->m[0][c] = x;
+  points->m[1][c] = y;
+  points->m[2][c] = z;
+  points->m[3][c] = 1;
+  printf("WHERE ARE U SEG FAULT ft. add_point 2 \n");*/
+  if (points->lastcol == points->cols) {
+    grow_matrix(points,points->cols + 1);
+  }
+  points->m[0][points->lastcol]=x;
+  points->m[1][points->lastcol]=y;
+  points->m[2][points->lastcol]=z;
+  points->m[3][points->lastcol]=1;
+  points->lastcol = points->lastcol + 1;
 }
 
 /*======== void add_edge() ==========
@@ -34,8 +46,10 @@ should use add_point
 void add_edge( struct matrix * points, 
 	       int x0, int y0, int z0, 
 	       int x1, int y1, int z1) {
+  printf("WHERE ARE U SEG FAULT ft. add_edge \n");
   add_point(points, x0, y0, z0);
   add_point(points, x1, y1, z1);
+  printf("WHERE ARE U SEG FAULT ft. add_edge pt. 2\n");
 }
 
 /*======== void draw_lines() ==========
@@ -46,8 +60,12 @@ Returns:
 Go through points 2 at a time and call draw_line to add that line
 to the screen
 ====================*/
+//M[R][C]
 void draw_lines( struct matrix * points, screen s, color c) {
   //matrix is abbccdda
+  for (int co = 1; co < points->cols; co++) {
+    draw_line(points->m[0][co-1], points->m[1][co-1], points->m[0][co], points->m[1][co], s, c);
+  }
 }
 
 
