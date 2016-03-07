@@ -194,7 +194,7 @@ Inputs:  int x
          int z 
 Returns: The translation matrix created using x, y and z 
 as the translation offsets.
-====================*/
+====================*/ 
 struct matrix * make_translate(double x, double y, double z) {
   struct matrix *t;
   t = new_matrix(4,4);
